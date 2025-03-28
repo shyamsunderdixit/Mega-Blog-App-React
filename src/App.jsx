@@ -21,20 +21,22 @@ function App() {
     authService.getCurrentUser()
       .then((userData) => {
         if(userData) {
-          dispatch(login({userData}))
+          dispatch(login({ userData })); // User is logged in
         } else {
-          dispatch(logout())
+          dispatch(logout()); // No user, clear session
         }
       })
-      .finally(() => setLoading(false))
-  }, [])
+      .catch((error) => console.error("Error fetching user:", error.message))
+      .finally(() => setLoading(false));
+}, []);
+
   
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-gray-400"><div>
+    <div className="w-screen h-screen flex flex-col bg-gray-400"><div>
       </div>
         <Header />
-        <main>
+        <main className="flex-1 flex justify-center items-center">
           {/* <Outlet /> → Dynamically loads different pages based on routes. */}
           <Outlet />
         </main>

@@ -73,7 +73,16 @@ export default function PostForm({ post }) {
 
         return "";
     }, []);
-
+    
+    // SPECIALLY FOR Subscription's useEffect
+    // 🔹 What is watch() Doing?
+    // watch() from react-hook-form monitors form fields for changes.
+    // In this case, it watches the "title" field.
+    // If the title changes, the slug is updated dynamically using setValue().
+    
+    // 🔹 Why Do We Need a Subscription?
+    // watch() returns a subscription that continuously listens for changes.
+    // When the component unmounts (removed from the screen), we unsubscribe to prevent memory leaks.
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
@@ -150,16 +159,6 @@ export default function PostForm({ post }) {
 // ✅ Uploads featured images & deletes old ones if editing.
 // ✅ Auto-updates slug while typing.
 // ✅ Navigates to the post after submission.
-
-// SPECIALLY FOR Subscription's useEffect
-// 🔹 What is watch() Doing?
-// watch() from react-hook-form monitors form fields for changes.
-// In this case, it watches the "title" field.
-// If the title changes, the slug is updated dynamically using setValue().
-
-// 🔹 Why Do We Need a Subscription?
-// watch() returns a subscription that continuously listens for changes.
-// When the component unmounts (removed from the screen), we unsubscribe to prevent memory leaks.
 
 // 🔹 Step-by-Step Execution
 // The effect runs when the component mounts.
