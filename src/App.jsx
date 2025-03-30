@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux"
 import './App.css'
 import authService from "./appwrite/auth"
-import {login, logout} from "./store/authSlice"
+import { login, logout } from "./store/authSlice"
 import Header from "./components/Header/Header"
 import Footer from "./components/Footer/Footer"
-import {Outlet} from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 // 📌 What Happens Here?
 // Runs authService.getCurrentUser() on page load (useEffect with [] dependency array).
@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     authService.getCurrentUser()
       .then((userData) => {
-        if(userData) {
+        if (userData) {
           dispatch(login({ userData })); // User is logged in
         } else {
           dispatch(logout()); // No user, clear session
@@ -28,24 +28,24 @@ function App() {
       })
       .catch((error) => console.error("Error fetching user:", error.message))
       .finally(() => setLoading(false));
-}, []);
+  }, []);
 
-  
+
 
   return !loading ? (
-    <div className="w-screen h-screen flex flex-col bg-gray-400"><div>
-      </div>
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div className='w-full block'>
         <Header />
-        <main className="flex-1 flex justify-center items-center">
-          {/* <Outlet /> → Dynamically loads different pages based on routes. */}
-          <Outlet />
+        <main>
+          TODO:  <Outlet />
         </main>
         <Footer />
       </div>
+    </div>
   ) : null
 }
 
-export default App; 
+export default App;
 
 // ✅ Summary
 // 🔹 What This App.js Does
