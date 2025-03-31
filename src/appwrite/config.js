@@ -104,12 +104,17 @@ export class Service {
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
-            )
+            );
         } catch (error) {
-            console.log("Appwrite service :: getPosts :: error", error);
-            return null
+            if (error.code === 401) {
+                console.warn("User is not authorized to fetch posts. Please login or signip to read posts.");
+                return { documents: [] }; // Return an empty array instead of crashing
+            }
+            console.error("Appwrite service :: getPosts :: error", error.message);
+            return null;
         }
     }
+    
 
     // file upload service
 

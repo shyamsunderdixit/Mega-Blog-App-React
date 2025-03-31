@@ -54,7 +54,6 @@ export default function PostForm({ post }) {
                             // console.log("UserData:", userData); // Debugging to see user data
                             // console.log("Creating Post with Data:", { ...data, userID: userData?.$id });
                     const dbPost = await appwriteService.createPost({ ...data, userID: userData.$id });
-                    // just above line GPT
                     if (dbPost) {
                         navigate(`/post/${dbPost.$id}`);
                     }

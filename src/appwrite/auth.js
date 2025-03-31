@@ -57,11 +57,16 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error);
+            if (error.code === 401) {
+                console.warn("No active session. User is not logged in.");
+                return null; // Return null for unauthenticated users
+            }
+            console.error("Appwrite service :: getCurrentUser :: error", error.message);
+            return null;
         }
-
-        return null;
     }
+    
+    
 
 
     // 5️⃣ Logging Out (logout)
